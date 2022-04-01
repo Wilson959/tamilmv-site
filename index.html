@@ -283,7 +283,7 @@
             document.getElementById("Loader").style = "";
 
             singleEpisodeurl = singleEpisodeurl.replace("https://","");
-            makeRequest("GET",singleEpisodeurl).then(response => {
+            makeRequest("GET","https://crosdev.herokuapp.com/" + singleEpisodeurl).then(response => {
                 if (response.status == 200) {
                     console.log(response.responseText);
 
