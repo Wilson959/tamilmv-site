@@ -292,7 +292,7 @@
                     obj = obj.replaceAll(rep1,"==");
 
     document.getElementById("Loader").style = "display:none!important";
-    var res = `<button class='btn btn-primary' onClick="loadLatestPosts()">Go Back</button>`;
+    var res = `<button class='btn btn-primary' onClick="initAgain()">Go Back</button>`;
 
     const parser = new DOMParser();
    var doc = parser.parseFromString(obj, "text/html");
