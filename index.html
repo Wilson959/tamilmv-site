@@ -147,7 +147,7 @@
     <h5 class="card-title">${i['name']}</h5>
     ${i['description']}
     <br>
-    <button class="btn btn-primary" onClick="loadEpisodes(${i['id']})">Episodes</button>
+    <button class="btn btn-primary" onClick="loadSingleEpisode(${i['id']})">Episodes</button>
   </div>
 </div>
 </div>
@@ -200,7 +200,7 @@
     <h5 class="card-title">${i['name']}</h5>
     ${i['description']}
     <br>
-    <button class="btn btn-primary" onClick="loadEpisodes(${i['id']})">Episodes</button>
+    <button class="btn btn-primary" onClick="loadSingleEpisode(${i['id']})">Episodes</button>
   </div>
 </div>
 </div>
@@ -226,51 +226,6 @@
 
 
 
-        function loadEpisodes(catid) {
-            document.getElementById('mainContent').innerHTML = ``;
-            document.getElementById("Loader").style = "";
-
-            makeRequest("GET", getCategoryUri(catid)).then(response => {
-                if (response.status == 200) {
-                    console.log(response.responseText);
-
-                    var obj = JSON.parse(response.responseText);
-
-                    console.log(obj);
-
-                    document.getElementById("Loader").style = "display:none!important";
-                    var res = "<button class='btn btn-primary' onClick='initAgain()'>Go Back</button>";
-
-
-
-                    obj.forEach((i) => {
-                        res = res + `
-                 
-  <div class="col-lg-4 col-md-6 col-sm-12 ">
-    <div class="card" style="margin:5px">
-  <div class="card-body">
-    <h5 class="card-title">${i['title']['rendered']}</h5>
-    <button class="btn btn-primary" onClick="loadSingleEpisode('${i['link']}',${catid})">Open</button>
-  </div>
-</div>
-</div>
-  `;
-
-                    });
-
-
-
-                    document.getElementById('mainContent').innerHTML = res;
-
-                }
-
-
-            });
-
-
-
-
-        }
 
 
 
