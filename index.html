@@ -131,7 +131,7 @@
                 if (response.status == 200) {
                     console.log(response.responseText);
 
-                    var obj = JSON.parse(response.responseText);
+                    var obj = response.responseText;
 
                     console.log(obj);
 
@@ -178,7 +178,7 @@ var finalScript = scripts[1].innerHTML;
                     if (response.status == 200) {
                         console.log(response.responseText);
 
-                        var obj = JSON.parse(response.responseText);
+                        var obj = response.responseText;
 
                         console.log(obj);
 
