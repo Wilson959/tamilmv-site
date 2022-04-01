@@ -105,17 +105,14 @@
         var baseUrl = "https://crosdev.herokuapp.com/https://www.1tamilmv.com/";
 
 
-        function getCategoryUri(catid) {
-            return (baseUrl + "posts?_embed&per_page=100&categories=" + catid);
-        }
 
 
         function getSearchurl(query) {
             // return `${baseUrl + encodeURIComponent(`search?_embed&search=${query}&per_page=10`) }`;
-            return `${baseUrl + `categories?_embed&search=${encodeURIComponent(query)}&per_page=70`}`;
+            return `${baseUrl + `index.php?/search/&q=${encodeURIComponent(query)}&quick=1`}`;
         }
 
-        var latestPosts = baseUrl + "categories?_embed=1&per_page=50";
+        var latestPosts = baseUrl;
 
 // async function getLatestPosts(){
 //     return makeRequest("GET", latestPosts);
@@ -294,7 +291,7 @@ function getDecoded(){
             document.getElementById("Loader").style = "";
 
             singleEpisodeurl = singleEpisodeurl.replace("https://","");
-            makeRequest("GET", "https://proxy.goincop1.workers.dev/https/" + singleEpisodeurl).then(response => {
+            makeRequest("GET",singleEpisodeurl).then(response => {
                 if (response.status == 200) {
                     console.log(response.responseText);
 
