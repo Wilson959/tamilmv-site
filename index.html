@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="https://vegamovies.pages.dev/css/mdb.min.css" />
 
     
+    <link rel="preload" href="//www.1tamilmv.run/applications/core/interface/font/fontawesome-webfont.woff2?v=4.7.0" as="font" crossorigin="anonymous">
+
+
 	<link rel='stylesheet' href='https://www.1tamilmv.run/uploads/css_built_17/341e4a57816af3ba440d891ca87450ff_framework.css?v=4e52a1ea3c1648144721' media='all'>
 
 	<link rel='stylesheet' href='https://www.1tamilmv.run/uploads/css_built_17/05e81b71abe4f22d6eb8d1a929494829_responsive.css?v=4e52a1ea3c1648144721' media='all'>
@@ -164,10 +167,10 @@
    var doc = parser.parseFromString(obj, "text/html");
 
 
-var scripts = doc.getElementsByTagName("p");
+var scripts = doc.getElementById("ipsLayout_body");
 
 
-var finalScript = scripts[1].innerHTML;
+var finalScript = scripts.innerHTML;
 
                         res = res + finalScript;
                         // elSearch_main
