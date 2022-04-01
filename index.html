@@ -274,14 +274,6 @@
 
 
 
-function setdecodedData(data){
-				localStorage.setItem("mrdecode",data);
-
-}
-
-function getDecoded(){
-		return	localStorage.getItem("mrdecode");
-}
 
 
         function loadSingleEpisode(singleEpisodeurl, animeId) {
@@ -300,53 +292,19 @@ function getDecoded(){
                     obj = obj.replaceAll(rep1,"==");
 
     document.getElementById("Loader").style = "display:none!important";
-    var res = `<button class='btn btn-primary' onClick="loadEpisodes(${animeId})">Go Back</button>`;
+    var res = `<button class='btn btn-primary' onClick="loadLatestPosts()">Go Back</button>`;
 
     const parser = new DOMParser();
    var doc = parser.parseFromString(obj, "text/html");
 
 
-var scripts = doc.getElementsByTagName("script");
-
-console.log(scripts);
+var scripts = doc.getElementsByTagName("article");
 
 
-var finalScript = scripts[5].innerHTML;
+var finalScript = scripts[0].innerHTML;
 
 
-//for (var i = 0; i < scripts.length; i++) {
- // if (scripts[i].innerHTML && scripts[i].innerHTML.includes("var HYO =")) {
-  //	console.log(i, scripts[i].innerHTML);
-  //    finalScript = scripts[i].innerHTML;
-    //  console.log(finalScript);
-   //   break;
- // } 
-//}
-
-
-finalScript = finalScript.replace('document.write','setdecodedData');
-
-eval(finalScript);
-
-var decoded = getDecoded();
- 
- 
- doc = parser.parseFromString(decoded, "text/html");
- 
-var srcf = doc.getElementsByTagName("iframe")[0].src;
-
-srcf = srcf.replace("https://wcofun.pages.dev/","");
-
-srcf = "https://wcofun.com/"+ srcf;
-
-  
-  
-  var res2 = `
-      <iframe allowfullscreen="allowfullscreen" src="${srcf}" frameborder="0" height="600px" width="100%"></iframe>
-  `;
-
-
-res = res + res2;
+res = res + finalScript;
     document.getElementById('mainContent').innerHTML = res;
     }
 
