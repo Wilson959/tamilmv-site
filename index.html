@@ -271,7 +271,7 @@
 
                     document.getElementById("Loader").style = "display:none!important";
                     // var res = "";
-
+                    doc.documentElement.style.width = "100%";
                     document.getElementById('mainContent').appendChild(doc.documentElement);
                     document.getElementById('mainContent').innerHTML = res + document.getElementById('mainContent').innerHTML;
 
