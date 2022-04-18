@@ -274,7 +274,8 @@
                         var a = doc.getElementsByTagName("img");
 
                          for (c = 0; c < a.length; c++) {
-                           a[c].style.width = "100%";
+                           a[c].style.maxWidth = "100%";
+                           a[c].style.height = "auto";
                          }
 
                     doc.documentElement.style.width = "100%";
