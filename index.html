@@ -1,3 +1,295 @@
-<iframe src="https://home.techiebank.workers.dev/-----https://www.1tamilmv.com/" width="100%" height="800px" sandbox="allow-forms allow-orientation-lock allow-same-origin allow-top-navigation allow-scripts" frameborder="none" >
-    <p>Your browser does not support iframes.</p>
-  </iframe>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>TamilMV Site</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="https://vegamovies.pages.dev/img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="https://vegamovies.pages.dev/css/mdb.min.css" />
+</head>
+
+<body>
+
+
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">TamilMV Site</a>
+
+            <div class="input-group d-flex w-auto">
+                <div class="form-outline">
+                    <input type="search" id="form1" class="form-control" />
+                    <label class="form-label" for="form1">Search</label>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="doSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+
+        </div>
+    </nav>
+
+
+
+    <div class="d-flex justify-content-center" id="Loader">
+        <div class="spinner-border m-5 text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- Start your project here-->
+    <div class="container row  w-auto" id="mainContent" style="margin: 10px;margin-top: 30px;">
+
+    </div>
+    <!-- End your project here-->
+
+
+
+
+
+    <!-- MDB -->
+    <script type="text/javascript" src="https://vegamovies.pages.dev/js/mdb.min.js"></script>
+    <script type="text/javascript">
+        var url = new URL(window.location.href);
+
+
+        function makeRequest(method, url) {
+            return new Promise(function (resolve, reject) {
+                let xhr = new XMLHttpRequest();
+                xhr.open(method, url);
+                xhr.onload = function () {
+                    if (this.status >= 200 && this.status < 300) {
+                        resolve({
+                            status: this.status,
+                            statusText: xhr.statusText,
+                            responseText: xhr.responseText
+                        });
+                    } else {
+                        reject({
+                            status: this.status,
+                            statusText: xhr.statusText
+                        });
+                    }
+                };
+                xhr.onerror = function () {
+                    reject({
+                        status: this.status,
+                        statusText: xhr.statusText
+                    });
+                };
+                xhr.send();
+            });
+        }
+
+        function getWordStr(str) {
+            return str.split(/\s+/).slice(0, 10).join(" ");
+        }
+
+
+        var baseUrl = "https://www.wcofun.com/wp-json/wp/v2/";
+
+
+        function getCategoryUri(catid) {
+            return (baseUrl + "posts?_embed&per_page=100&categories=" + catid);
+        }
+
+
+        function getSearchurl(query) {
+            var tamilmc = `https://www.1tamilmv.com/index.php?/search/&q=${query}&quick=1&search_and_or=or&sortby=relevancy`;
+
+            // var selector = "#elSearch_main > div > ol";
+            var selector = "span.ipsType_break.ipsContained";
+
+            return `https://scrap.torrentdev.workers.dev/?url=${encodeURIComponent(tamilmc)}&selector=${encodeURIComponent(selector)}`;
+        }
+
+        var latestPosts = "https://scrap.torrentdev.workers.dev/?url=1tamilmv.com&selector=%23ipsLayout_mainArea%20%3E%20div%3Anth-child%282%29%20%3E%20ul%20%3E%20li%3Anth-child%281%29%20%3E%20div%20%3E%20p%3Anth-child%281%29";
+
+
+    </script>
+    <!-- Custom scripts -->
+    <script type="text/javascript">
+
+        function initAgain() {
+
+            document.getElementById('mainContent').innerHTML = ``;
+            document.getElementById("Loader").style = "";
+
+
+            makeRequest("GET", latestPosts).then(response => {
+
+                if (response.status == 200) {
+                    console.log(response.responseText);
+
+                    var obj = JSON.parse(response.responseText);
+
+                    console.log(obj);
+                    obj = obj.result[0].innerHTML;
+
+                    const parser = new DOMParser();
+                    var doc = parser.parseFromString(obj, "text/html");
+
+                    var a = doc.getElementsByTagName("a");
+
+                    for (c = 0; c < a.length; c++) {
+
+                        a[c].href = "javascript:loadEpisodes('" + a[c].href + "');";
+
+                        console.log(a[c].href);
+                    }
+
+                    // obj = obj.replace();
+
+                    document.getElementById("Loader").style = "display:none!important";
+                    // var res = "";
+
+
+                    document.getElementById('mainContent').appendChild(doc.documentElement);
+
+                }
+
+
+            });
+        }
+
+        initAgain();
+
+
+
+
+        function doSearch() {
+
+            if (document.getElementById('form1').value) {
+
+                document.getElementById('mainContent').innerHTML = ``;
+
+                document.getElementById("Loader").style = "";
+
+                var url = getSearchurl(document.getElementById('form1').value);
+
+                makeRequest("GET", url).then(response => {
+
+                    if (response.status == 200) {
+                        console.log(response.responseText);
+
+                        var obj = JSON.parse(response.responseText);
+
+                        console.log(obj);
+
+                        obj = obj.result;
+
+                        obj.forEach(element => {
+                            var html = element.innerHTML;
+                            const parser = new DOMParser(); 
+                            var doc = parser.parseFromString(html, "text/html");
+
+                            var a = doc.getElementsByTagName("a");
+
+                            for (c = 0; c < a.length; c++) {
+                                a[c].href = "javascript:loadEpisodes('" + a[c].href + "');";
+                            }
+
+                            doc.documentElement.style.marginBottom = "20px";
+
+                            document.getElementById('mainContent').appendChild(doc.documentElement);
+
+
+                        });
+
+
+                         document.getElementById("Loader").style = "display:none!important";
+
+
+                        // const parser = new DOMParser();
+                        // var doc = parser.parseFromString(obj, "text/html");
+
+                        // var a = doc.getElementsByTagName("a");
+
+                        // for (c = 0; c < a.length; c++) {
+                        //     a[c].href = "javascript:loadEpisodes('" + a[c].href + "');";
+
+                        //     console.log(a[c].href);
+                        // }
+
+                        // // obj = obj.replace();
+
+                        // document.getElementById("Loader").style = "display:none!important";
+                        // // var res = "";
+
+                        // document.getElementById('mainContent').appendChild(doc.documentElement);
+
+                    }
+
+
+                });
+
+
+
+            }
+        }
+
+
+
+
+
+
+        function loadEpisodes(url) {
+            document.getElementById('mainContent').innerHTML = ``;
+            document.getElementById("Loader").style = "";
+
+            makeRequest("GET", `https://scrap.torrentdev.workers.dev/?url=${url}&selector=div.ipsType_normal.ipsType_richText.ipsPadding_bottom.ipsContained`).then(response => {
+                if (response.status == 200) {
+                    console.log(response.responseText);
+
+                    var obj = JSON.parse(response.responseText);
+
+                    console.log(obj);
+
+                    document.getElementById("Loader").style = "display:none!important";
+                    var res = "<button class='btn btn-primary' onClick='initAgain()'>Go Back</button>";
+
+                    obj = obj.result[0].innerHTML;
+
+                    const parser = new DOMParser();
+                    var doc = parser.parseFromString(obj, "text/html");
+
+                    document.getElementById("Loader").style = "display:none!important";
+                    // var res = "";
+
+                    document.getElementById('mainContent').appendChild(doc.documentElement);
+                    document.getElementById('mainContent').innerHTML = res + document.getElementById('mainContent').innerHTML;
+
+                }
+
+
+            });
+
+
+
+
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>
